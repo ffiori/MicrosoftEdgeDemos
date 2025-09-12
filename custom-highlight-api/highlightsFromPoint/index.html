@@ -193,7 +193,7 @@
       const allTextNodes = mainTextNodes.concat(shadowTextNodes);
 
       // Function to create highlights for specific words/phrases
-      function createHighlightsForWords(textNodes, words, highlightName) {
+      function createHighlightsForgitWords(textNodes, words, highlightName) {
         const ranges = [];
         
         // Look for the words/phrases in each text node in textNodes
@@ -218,7 +218,10 @@
         
         // If we found any words/phrases, create and register the highlight with the respective ranges
         if (ranges.length > 0) {
-          const highlight = new Highlight(...ranges);
+          let highlight = new Highlight(...ranges);
+          if (["spelling-error", "grammar-error"].includes(highlightName)) {
+            highlight.type = highlightName;
+          }
           CSS.highlights.set(highlightName, highlight);
         }
       }
